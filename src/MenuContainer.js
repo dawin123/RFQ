@@ -23,7 +23,7 @@ const MenuContainer = props => {
   };
 
   return (
-    <Segment basic inverted style={{ marginBottom: 0 }}>
+    <Segment basic inverted style={{ marginBottom: 0, paddingTop: '0.1em', paddingBottom: '0.1em' }}>
       <Menu inverted secondary>
         <Menu.Item name="push" onClick={handleToggleSidebar}>
           Menu

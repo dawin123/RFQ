@@ -5,7 +5,9 @@ import { LIST_TYPE_MAPPING } from "./constants/rfqConstants";
 import {
   setItemPerPage,
   setCurrentPageNo,
-  fetchRFQData
+  fetchRFQData,
+  setHiddenRow,
+  removeAllSelectedRow,
 } from "./actions/index";
 
 const PaginationContainer = props => {
@@ -17,16 +19,23 @@ const PaginationContainer = props => {
     setCurrentPageNo,
     fetchRFQData,
     totalCount,
-    selectedTab
+    selectedTab,
+    setHiddenRow,
+    removeAllSelectedRow
   } = props;
 
   const handlePageChange = (ev, data) => {
     setCurrentPageNo(data.activePage);
+    setHiddenRow(false);
+    removeAllSelectedRow();
     fetchRFQData();
   };
+
   const handleItemPerPageChange = (ev, data) => {
     setItemPerPage(data.value);
     setCurrentPageNo(1);
+    setHiddenRow(false);
+    removeAllSelectedRow();
     fetchRFQData();
   };
 
@@ -70,7 +79,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   setItemPerPage: value => dispatch(setItemPerPage(value)),
   setCurrentPageNo: value => dispatch(setCurrentPageNo(value)),
-  fetchRFQData: () => dispatch(fetchRFQData())
+  fetchRFQData: () => dispatch(fetchRFQData()),
+  setHiddenRow: value => dispatch(setHiddenRow(value)),
+  removeAllSelectedRow: () => dispatch(removeAllSelectedRow())
 });
 
 export default connect(

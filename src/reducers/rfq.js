@@ -41,6 +41,8 @@ const initialState = {
   rfqEntry: [],
   isLoading: false,
   dateSort: DATE_SORTING_MODE.MOST_RECENT,
+  selectedRow: [],
+  hiddenRow: false
 };
 
 const rfq = (state = initialState, action) => {
@@ -122,6 +124,29 @@ const rfq = (state = initialState, action) => {
       return {
         ...state,
         dateSort: action.value,
+      };
+    case rfqActionType.ADD_SELECTED_ROW:
+      return {
+        ...state,
+        selectedRow: [...state.selectedRow, ...action.toSelect],
+      };
+    case rfqActionType.REMOVE_SELECTED_ROW:
+      return {
+        ...state,
+        selectedRow: [
+          ...state.selectedRow.slice(0, state.selectedRow.indexOf(action.toUnselect)),
+          ...state.selectedRow.slice(state.selectedRow.indexOf(action.toUnselect) + 1)
+        ]
+      };
+    case rfqActionType.REMOVE_ALL_SELECTED_ROW: 
+      return {
+        ...state,
+        selectedRow: [],
+      }
+    case rfqActionType.SET_HIDDEN_ROW:
+      return {
+        ...state,
+        hiddenRow: action.value,
       };
     default:
       return state;

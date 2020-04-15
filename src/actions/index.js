@@ -64,6 +64,25 @@ export const setDateSortingMode = value => ({
   value: value
 });
 
+export const addSelectedRow = toSelect => ({
+  type: rfqActionType.ADD_SELECTED_ROW,
+  toSelect: toSelect
+});
+
+export const removeSelectedRow = toUnselect => ({
+  type: rfqActionType.REMOVE_SELECTED_ROW,
+  toUnselect: toUnselect
+});
+
+export const removeAllSelectedRow = () => ({
+  type: rfqActionType.REMOVE_ALL_SELECTED_ROW
+});
+
+export const setHiddenRow = value => ({
+  type: rfqActionType.SET_HIDDEN_ROW,
+  value: value
+});
+
 export const fetchAPI = () => {
   axios
     .get("https://api.github.com/users/square/repos")

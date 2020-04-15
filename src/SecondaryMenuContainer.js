@@ -1,19 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
+import { CSVLink } from "react-csv";
 import { Menu, Icon, Checkbox, Button } from "semantic-ui-react";
 
-import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode } from './actions/index';
+import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode, setHiddenRow, removeAllSelectedRow } from './actions/index';
 import { DATE_SORTING_MODE } from './constants/rfqConstants';
 import SelectColumnModalContainer from './SelectColumnModalContainer';
 
 const SecondaryMenuContainer = (props) => {
-  const { resetFilter, fetchRFQData, setCurrentPageNo, dateSort, setDateSortingMode } = props;
-
-  const handleItemClick = () => false;
+  const { resetFilter, fetchRFQData, setCurrentPageNo, dateSort, setDateSortingMode, entry, 
+    selectedRow, hiddenRow, setHiddenRow, removeAllSelectedRow } = props;
 
   const handleClearFilter = () => {
     resetFilter();
     setCurrentPageNo(1);
+    setHiddenRow(false);
+    removeAllSelectedRow();
     fetchRFQData();
   };
 
@@ -23,7 +25,17 @@ const SecondaryMenuContainer = (props) => {
     } else {
       setDateSortingMode(DATE_SORTING_MODE.MOST_RECENT);
     }
+    setHiddenRow(false);
+    removeAllSelectedRow();
     fetchRFQData();
+  };
+
+  const toggleHideRow = () => {
+    if(hiddenRow){
+      removeAllSelectedRow();
+    }
+
+    setHiddenRow(!hiddenRow);
   };
 
   return (
@@ -33,8 +45,8 @@ const SecondaryMenuContainer = (props) => {
           <Menu.Item name="columns">
             <SelectColumnModalContainer/>
           </Menu.Item>
-          <Menu.Item name="hide" onClick={handleItemClick}>
-            <Icon name="hide" /> Hide
+          <Menu.Item name="hide" onClick={toggleHideRow} disabled={selectedRow.length < 1}>
+            <Icon name={hiddenRow ? "unhide" : "hide"} /> {hiddenRow ? 'Unhide' : 'Hide'}
           </Menu.Item>
           <Menu.Item name="dateSort" onClick={handleDateSort}>
             <Button>
@@ -44,13 +56,15 @@ const SecondaryMenuContainer = (props) => {
               }
             </Button>
           </Menu.Item>
-          <Menu.Item name="create" onClick={handleItemClick}>
+          <Menu.Item name="create">
             <Icon name="plus" /> Create RFQ
           </Menu.Item>
-          <Menu.Item name="export" onClick={handleItemClick}>
-            <Icon name="download" /> Export
+          <Menu.Item name="export">
+            <CSVLink data={entry} filename={'RFQ.csv'} style={{color: 'rgba(0,0,0,.87)'}}>
+              <Icon name="download" /> Export
+            </CSVLink>
           </Menu.Item>
-          <Menu.Item name="refresh" onClick={handleItemClick}>
+          <Menu.Item name="refresh">
             <Checkbox label={"Auto Refresh"} />
           </Menu.Item>
           <Menu.Item name="clear" onClick={handleClearFilter}>
@@ -63,14 +77,19 @@ const SecondaryMenuContainer = (props) => {
 };
 
 const mapStateToProps = state => ({
-  dateSort: state.dateSort
+  dateSort: state.dateSort,
+  entry: state.rfqEntry,
+  hiddenRow: state.hiddenRow,
+  selectedRow: state.selectedRow,
 });
 
 const mapDispatchToProps = dispatch => ({
   resetFilter: () => dispatch(resetFilter()),
   fetchRFQData: () => dispatch(fetchRFQData()),
   setCurrentPageNo: value => dispatch(setCurrentPageNo(value)),
-  setDateSortingMode: value => dispatch(setDateSortingMode(value))
+  setDateSortingMode: value => dispatch(setDateSortingMode(value)),
+  setHiddenRow: value => dispatch(setHiddenRow(value)),
+  removeAllSelectedRow: () => dispatch(removeAllSelectedRow()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondaryMenuContainer);

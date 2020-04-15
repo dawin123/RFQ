@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Tab } from "semantic-ui-react";
-import { setSelectedTab, fetchRFQData, setCurrentPageNo, resetFilter } from "./actions/index";
+import { setSelectedTab, fetchRFQData, setCurrentPageNo, resetFilter, setHiddenRow, removeAllSelectedRow } from "./actions/index";
 import { LIST_TYPE } from "./constants/rfqConstants";
 
 const TabContainer = props => {
@@ -9,6 +9,8 @@ const TabContainer = props => {
   const handleTabChange = (e, { activeIndex }) => {
     setActiveTab(activeIndex);
     setCurrentPageNo(1);
+    setHiddenRow(false);
+    removeAllSelectedRow();
     resetFilter();
     fetchRFQData();
   };
@@ -37,7 +39,9 @@ const mapDispatchToProps = dispatch => ({
   setActiveTab: value => dispatch(setSelectedTab(value)),
   fetchRFQData: () => dispatch(fetchRFQData()),
   setCurrentPageNo: value => dispatch(setCurrentPageNo(value)),
-  resetFilter: () => dispatch(resetFilter())
+  resetFilter: () => dispatch(resetFilter()),
+  setHiddenRow: value => dispatch(setHiddenRow(value)),
+  removeAllSelectedRow: () => dispatch(removeAllSelectedRow())
 });
 
 export default connect(
