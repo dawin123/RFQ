@@ -1,12 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Table, Input, Button, Loader } from "semantic-ui-react";
+import { Table, Input, Button, Loader, Checkbox } from "semantic-ui-react";
 // import sampleData from "./sampleData";
 import { setFilter, fetchRFQData, setCurrentPageNo } from "./actions/index";
-import { FILTER_FIELD } from "./constants/rfqConstants";
+import { FILTER_FIELD, FIELD_TEXT, FIELD_OBJECT_MAPPING } from "./constants/rfqConstants";
 
 const TableContainer = props => {
-  const { filter, entry, setDataFilter, fetchRFQData, setCurrentPageNo, isLoading } = props;
+  const { filter, entry, setDataFilter, fetchRFQData, setCurrentPageNo, isLoading, showColumn } = props;
   const showPercentage = decimal => {
     return decimal * 100;
   };
@@ -41,49 +41,29 @@ const TableContainer = props => {
         <Table>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>RFQ</Table.HeaderCell>
-              <Table.HeaderCell>Quote ID</Table.HeaderCell>
-              <Table.HeaderCell>Last Updated Time</Table.HeaderCell>
-              <Table.HeaderCell>Sender</Table.HeaderCell>
-              <Table.HeaderCell>Subject</Table.HeaderCell>
-              <Table.HeaderCell>Product</Table.HeaderCell>
-              <Table.HeaderCell>Percentage</Table.HeaderCell>
-              <Table.HeaderCell>Quantity</Table.HeaderCell>
-              <Table.HeaderCell>Quote Status</Table.HeaderCell>
-              <Table.HeaderCell>Market</Table.HeaderCell>
+              {Object.keys(FIELD_TEXT).map(key => {
+                if(showColumn[key]){
+                  return (
+                    <Table.HeaderCell key={key}>{FIELD_TEXT[key]}</Table.HeaderCell>
+                    );
+                } else {
+                  return null;
+                }
+              })}
               <Table.HeaderCell />
             </Table.Row>
             <Table.Row>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.RFQ)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.QUOTE_ID)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.LAST_UPDATED)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.SENDER)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.SUBJECT)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.PRODUCT)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.PERCENTAGE)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.QUANTITY)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.QUOTE_STATUS)} />
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                <Input {...generateInputProps(FILTER_FIELD.MARKET)} />
-              </Table.HeaderCell>
+              {Object.keys(FILTER_FIELD).map(key => {
+                if(showColumn[key]){
+                  return (
+                    <Table.HeaderCell key={key}>
+                      <Input {...generateInputProps(FILTER_FIELD[key])} />
+                    </Table.HeaderCell>
+                  );
+                } else {
+                  return null;
+                }
+              })}
               <Table.HeaderCell>
                 <Button onClick={handleFilterClick()}>Filter</Button>
               </Table.HeaderCell>
@@ -93,23 +73,30 @@ const TableContainer = props => {
             {entry.length > 0 ? entry.map(entry => {
               return (
                 <Table.Row key={entry.rfq}>
-                  <Table.Cell>{entry.rfq}</Table.Cell>
-                  <Table.Cell>{entry.quoteId}</Table.Cell>
+                  {Object.keys(entry).map(key => {
+                    if(showColumn[FIELD_OBJECT_MAPPING[key]]){
+                      if(key === 'percentage'){
+                        return (
+                          <Table.Cell>{showPercentage(entry.percentage)}%</Table.Cell>
+                        );
+                      } else {
+                        return (
+                          <Table.Cell>{entry[key]}</Table.Cell>
+                        );
+                      }
+                    } else {
+                      return null;
+                    }
+                  })}
                   <Table.Cell>
-                    {entry.lastUpdated}
+                    <Checkbox />
                   </Table.Cell>
-                  <Table.Cell>{entry.sender}</Table.Cell>
-                  <Table.Cell>{entry.subject}</Table.Cell>
-                  <Table.Cell>{entry.product}</Table.Cell>
-                  <Table.Cell>{showPercentage(entry.percentage)}%</Table.Cell>
-                  <Table.Cell>{entry.quantity}</Table.Cell>
-                  <Table.Cell>{entry.quoteStatus}</Table.Cell>
-                  <Table.Cell>{entry.market}</Table.Cell>
                 </Table.Row>
               );
             }) :
             <Table.Row>
-              <Table.Cell style={{textAlign: 'center'}} colSpan={10}>- No Data -</Table.Cell>
+              <Table.Cell style={{textAlign: 'center'}} 
+              colSpan={Object.keys(showColumn).filter(key => showColumn[key]).length}>- No Data -</Table.Cell>
             </Table.Row>
             }
           </Table.Body>
@@ -123,7 +110,8 @@ const TableContainer = props => {
 const mapStateToProps = state => ({
   filter: state.filter,
   entry: state.rfqEntry,
-  isLoading: state.isLoading
+  isLoading: state.isLoading,
+  showColumn: state.showColumn
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -11,6 +11,32 @@ export const FILTER_FIELD = {
   MARKET: "MARKET"
 };
 
+export const FIELD_TEXT = {
+  RFQ: "RFQ",
+  QUOTE_ID: "Quote ID",
+  LAST_UPDATED: "Last Updated",
+  SENDER: "Sender",
+  SUBJECT: "Subject",
+  PRODUCT: "Product",
+  PERCENTAGE: "Percentage",
+  QUANTITY: "Quantity",
+  QUOTE_STATUS: "Quote Status",
+  MARKET: "Market"
+};
+
+export const FIELD_OBJECT_MAPPING = {
+  rfq: "RFQ",
+  quoteId: "QUOTE_ID",
+  lastUpdated: "LAST_UPDATED",
+  sender: "SENDER",
+  subject: "SUBJECT",
+  product: "PRODUCT",
+  percentage: "PERCENTAGE",
+  quantity: "QUANTITY",
+  quoteStatus: "QUOTE_STATUS",
+  market: "MARKET"
+};
+
 export const LIST_TYPE = {
   RFQ: "RFQ",
   QUOTE: "QUOTE",
