@@ -59,6 +59,11 @@ export const setShowColumn = (field, value) => ({
   value: value
 });
 
+export const setDateSortingMode = value => ({
+  type: rfqActionType.SET_DATE_SORTING_MODE,
+  value: value
+});
+
 export const fetchAPI = () => {
   axios
     .get("https://api.github.com/users/square/repos")
@@ -100,6 +105,7 @@ export const fetchRFQData = () => (dispatch, getState) => {
     quantityFilter: state.filter[FILTER_FIELD.QUANTITY],
     quoteStatusFilter: state.filter[FILTER_FIELD.QUOTE_STATUS],
     marketFilter: state.filter[FILTER_FIELD.MARKET],
+    dateSort: state.dateSort,
     currentPageNo: state.pagination.currentPageNo,
     itemPerPage: state.pagination.itemPerPage
   };

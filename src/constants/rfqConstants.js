@@ -47,4 +47,9 @@ export const LIST_TYPE_MAPPING = {
   0: "RFQ",
   1: "QUOTE",
   2: "EXCEPTION"
-}
+};
+
+export const DATE_SORTING_MODE = {
+  MOST_RECENT: 'MOST_RECENT',
+  LEAST_RECENT: 'LEAST_RECENT'
+};

@@ -40,7 +40,6 @@ const PaginationContainer = props => {
               options={[
                 { key: 5, value: 5, text: "5" },
                 { key: 10, value: 10, text: "10" },
-                { key: 15, value: 15, text: "15" }
               ]}
               style={{ marginRight: "10px" }}
               defaultValue={itemPerPage}

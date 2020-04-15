@@ -1,4 +1,4 @@
-import { FILTER_FIELD, LIST_TYPE } from "../constants/rfqConstants";
+import { FILTER_FIELD, LIST_TYPE, DATE_SORTING_MODE } from "../constants/rfqConstants";
 import * as rfqActionType from "../actions/rfqActionType";
 
 const initialState = {
@@ -40,6 +40,7 @@ const initialState = {
   },
   rfqEntry: [],
   isLoading: false,
+  dateSort: DATE_SORTING_MODE.MOST_RECENT,
 };
 
 const rfq = (state = initialState, action) => {
@@ -116,6 +117,11 @@ const rfq = (state = initialState, action) => {
           ...state.showColumn,
           [action.field]: action.value
         }
+      };
+    case rfqActionType.SET_DATE_SORTING_MODE:
+      return {
+        ...state,
+        dateSort: action.value,
       };
     default:
       return state;
