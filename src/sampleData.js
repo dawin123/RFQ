@@ -1,7 +1,7 @@
 export default {
   data: [
     {
-      rfc: "123",
+      q: "123",
       quoteId: "345",
       lastUpdated: {
         day: "10",
@@ -9,7 +9,7 @@ export default {
         year: "2020"
       },
       sender: "john.doe@gmail.com",
-      subject: "SG RFC",
+      subject: "SG RFQ",
       product: "SG SG SG",
       percentage: 0.01,
       quantity: 100,

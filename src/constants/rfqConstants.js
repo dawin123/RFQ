@@ -10,3 +10,15 @@ export const FILTER_FIELD = {
   QUOTE_STATUS: "QUOTE_STATUS",
   MARKET: "MARKET"
 };
+
+export const LIST_TYPE = {
+  RFQ: "RFQ",
+  QUOTE: "QUOTE",
+  EXCEPTION: "EXCEPTION"
+};
+
+export const LIST_TYPE_MAPPING = {
+  0: "RFQ",
+  1: "QUOTE",
+  2: "EXCEPTION"
+}

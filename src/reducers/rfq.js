@@ -1,4 +1,4 @@
-import { FILTER_FIELD } from "../constants/rfqConstants";
+import { FILTER_FIELD, LIST_TYPE } from "../constants/rfqConstants";
 import * as rfqActionType from "../actions/rfqActionType";
 
 const initialState = {
@@ -16,12 +16,30 @@ const initialState = {
     [FILTER_FIELD.QUOTE_STATUS]: "",
     [FILTER_FIELD.MARKET]: ""
   },
+  showColumn: {
+    [FILTER_FIELD.RFQ]: true,
+    [FILTER_FIELD.QUOTE_ID]: true,
+    [FILTER_FIELD.LAST_UPDATED]: true,
+    [FILTER_FIELD.SENDER]: true,
+    [FILTER_FIELD.SUBJECT]: true,
+    [FILTER_FIELD.PRODUCT]: true,
+    [FILTER_FIELD.PERCENTAGE]: true,
+    [FILTER_FIELD.QUANTITY]: true,
+    [FILTER_FIELD.QUOTE_STATUS]: true,
+    [FILTER_FIELD.MARKET]: true
+  },
   pagination: {
     currentPageNo: 1,
     totalPageNo: 5,
     itemPerPage: 10
   },
-  rfqEntry: []
+  totalCount: {
+    [LIST_TYPE.RFQ]: 0,
+    [LIST_TYPE.QUOTE]: 0,
+    [LIST_TYPE.EXCEPTION]: 0
+  },
+  rfqEntry: [],
+  isLoading: false,
 };
 
 const rfq = (state = initialState, action) => {
@@ -29,7 +47,7 @@ const rfq = (state = initialState, action) => {
     case rfqActionType.SET_ENTRIES:
       return {
         ...state,
-        rfcEntry: action.entry
+        rfqEntry: action.entry
       };
     case rfqActionType.SHOW_SIDEBAR:
       return {
@@ -59,7 +77,7 @@ const rfq = (state = initialState, action) => {
         ...state,
         pagination: {
           ...state.pagination,
-          pageNo: action.value
+          currentPageNo: action.value
         }
       };
     case rfqActionType.SET_TOTAL_PAGE_NO:
@@ -76,6 +94,27 @@ const rfq = (state = initialState, action) => {
         pagination: {
           ...state.pagination,
           itemPerPage: action.value
+        }
+      };
+    case rfqActionType.SET_TOTAL_COUNT:
+      return {
+        ...state,
+        totalCount: {
+          ...state.totalCount,
+          [action.listType]: action.value,
+        }
+      };
+    case rfqActionType.SET_IS_LOADING:
+      return {
+        ...state,
+        isLoading: action.value,
+      };
+    case rfqActionType.SET_SHOW_COLUMN:
+      return {
+        ...state,
+        showColumn: {
+          ...state.showColumn,
+          [action.field]: action.value
         }
       };
     default:

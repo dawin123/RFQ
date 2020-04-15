@@ -1,19 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Tab } from "semantic-ui-react";
-import { setSelectedTab, fetchRFQData } from "./actions/index";
+import { setSelectedTab, fetchRFQData, setCurrentPageNo, resetFilter } from "./actions/index";
+import { LIST_TYPE } from "./constants/rfqConstants";
 
 const TabContainer = props => {
-  const { selectedTab, setActiveTab, fetchRFQData } = props;
+  const { selectedTab, setActiveTab, fetchRFQData, totalCount, setCurrentPageNo, resetFilter } = props;
   const handleTabChange = (e, { activeIndex }) => {
     setActiveTab(activeIndex);
+    setCurrentPageNo(1);
+    resetFilter();
     fetchRFQData();
   };
 
   const panes = [
-    { menuItem: "RFQ", render: () => true },
-    { menuItem: "Quotes", render: () => true },
-    { menuItem: "Exception", render: () => true }
+    { menuItem: "RFQ (" + totalCount[LIST_TYPE.RFQ]+")", render: () => true },
+    { menuItem: "Quotes (" + totalCount[LIST_TYPE.QUOTE]+")", render: () => true },
+    { menuItem: "Exception (" + totalCount[LIST_TYPE.EXCEPTION]+")", render: () => true }
   ];
 
   return (
@@ -26,12 +29,15 @@ const TabContainer = props => {
 };
 
 const mapStateToProps = state => ({
-  selectedTab: state.selectedTab
+  selectedTab: state.selectedTab,
+  totalCount: state.totalCount
 });
 
 const mapDispatchToProps = dispatch => ({
   setActiveTab: value => dispatch(setSelectedTab(value)),
-  fetchRFQData: () => dispatch(fetchRFQData())
+  fetchRFQData: () => dispatch(fetchRFQData()),
+  setCurrentPageNo: value => dispatch(setCurrentPageNo(value)),
+  resetFilter: () => dispatch(resetFilter())
 });
 
 export default connect(

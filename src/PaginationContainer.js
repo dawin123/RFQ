@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Pagination, Select, Grid } from "semantic-ui-react";
+import { LIST_TYPE_MAPPING } from "./constants/rfqConstants";
 import {
   setItemPerPage,
   setCurrentPageNo,
@@ -11,15 +12,16 @@ const PaginationContainer = props => {
   const {
     currentPageNo,
     totalPageNo,
-    entry,
     itemPerPage,
     setItemPerPage,
     setCurrentPageNo,
-    fetchRFQData
+    fetchRFQData,
+    totalCount,
+    selectedTab
   } = props;
 
   const handlePageChange = (ev, data) => {
-    setCurrentPageNo(data.value);
+    setCurrentPageNo(data.activePage);
     fetchRFQData();
   };
   const handleItemPerPageChange = (ev, data) => {
@@ -32,7 +34,7 @@ const PaginationContainer = props => {
     <div>
       <Grid>
         <Grid.Row columns={2}>
-          <Grid.Column>{"Total Count: " + entry.length}</Grid.Column>
+          <Grid.Column>{"Total Count: " + totalCount[LIST_TYPE_MAPPING[selectedTab]]}</Grid.Column>
           <Grid.Column style={{ textAlign: "right" }}>
             <Select
               options={[
@@ -59,11 +61,11 @@ const PaginationContainer = props => {
 const mapStateToProps = state => ({
   currentPageNo: state.pagination.currentPageNo,
   totalPageNo: state.pagination.totalPageNo,
-  entry: state.rfqEntry,
   itemPerPage: state.pagination.itemPerPage,
   selectedTab: state.selectedTab,
   filter: state.filter,
-  pagination: state.pagination
+  pagination: state.pagination,
+  totalCount: state.totalCount
 });
 
 const mapDispatchToProps = dispatch => ({
