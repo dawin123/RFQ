@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux'; 
 import { Modal, Icon, Checkbox, Button } from 'semantic-ui-react';
 
-import { FILTER_FIELD } from './constants/rfqConstants';
-import { setShowColumn } from './actions/index';
+import { FILTER_FIELD } from '../constants/rfqConstants';
+import { setShowColumn } from '../actions/index';
 
 const SelectColumnModalContainer = (props) => {
   const { showColumn, setShowColumn } = props;

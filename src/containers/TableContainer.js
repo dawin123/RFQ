@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { Table, Input, Button, Loader, Checkbox } from "semantic-ui-react";
 // import sampleData from "./sampleData";
-import { setFilter, fetchRFQData, setCurrentPageNo, addSelectedRow, removeAllSelectedRow, removeSelectedRow, setHiddenRow } from "./actions/index";
-import { FILTER_FIELD, FIELD_TEXT, FIELD_OBJECT_MAPPING } from "./constants/rfqConstants";
+import { setFilter, fetchRFQData, setCurrentPageNo, addSelectedRow, removeAllSelectedRow, removeSelectedRow, setHiddenRow } from "../actions/index";
+import { FILTER_FIELD, FIELD_TEXT, FIELD_OBJECT_MAPPING } from "../constants/rfqConstants";
 
 const TableContainer = props => {
   const { filter, entry, setDataFilter, fetchRFQData, setCurrentPageNo, isLoading, showColumn, 

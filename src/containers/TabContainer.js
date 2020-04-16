@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Tab } from "semantic-ui-react";
-import { setSelectedTab, fetchRFQData, setCurrentPageNo, resetFilter, setHiddenRow, removeAllSelectedRow } from "./actions/index";
-import { LIST_TYPE } from "./constants/rfqConstants";
+import { setSelectedTab, fetchRFQData, setCurrentPageNo, resetFilter, setHiddenRow, removeAllSelectedRow } from "../actions/index";
+import { LIST_TYPE } from "../constants/rfqConstants";
 
 const TabContainer = props => {
   const { selectedTab, setActiveTab, fetchRFQData, totalCount, setCurrentPageNo, resetFilter } = props;

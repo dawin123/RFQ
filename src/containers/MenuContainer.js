@@ -9,7 +9,7 @@ import {
   Label,
   Popup
 } from "semantic-ui-react";
-import { setShowSidebar } from "./actions/index";
+import { setShowSidebar } from "../actions/index";
 
 const MenuContainer = props => {
   const { showSidebar, toggleSidebar } = props;

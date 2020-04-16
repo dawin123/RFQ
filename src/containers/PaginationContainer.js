@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Pagination, Select, Grid } from "semantic-ui-react";
-import { LIST_TYPE_MAPPING } from "./constants/rfqConstants";
+import { LIST_TYPE_MAPPING } from "../constants/rfqConstants";
 import {
   setItemPerPage,
   setCurrentPageNo,
   fetchRFQData,
   setHiddenRow,
   removeAllSelectedRow,
-} from "./actions/index";
+} from "../actions/index";
 
 const PaginationContainer = props => {
   const {

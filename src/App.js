@@ -2,10 +2,10 @@ import React from "react";
 import "./styles.css";
 import "semantic-ui-css/semantic.min.css";
 import { Sidebar, Segment } from "semantic-ui-react";
-import SidebarContainer from "./SidebarContainer";
-import MenuContainer from "./MenuContainer";
-import SecondaryMenuContainer from "./SecondaryMenuContainer";
-import ContentContainer from "./ContentContainer";
+import SidebarContainer from "./containers/SidebarContainer";
+import MenuContainer from "./containers/MenuContainer";
+import SecondaryMenuContainer from "./containers/SecondaryMenuContainer";
+import ContentContainer from "./containers/ContentContainer";
 
 export default function App() {
   return (

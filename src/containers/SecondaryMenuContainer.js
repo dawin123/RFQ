@@ -4,8 +4,8 @@ import { CSVLink } from "react-csv";
 import { Menu, Icon, Checkbox, Button } from "semantic-ui-react";
 
 import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode, setHiddenRow, 
-  removeAllSelectedRow, setAutoRefresh } from './actions/index';
-import { DATE_SORTING_MODE } from './constants/rfqConstants';
+  removeAllSelectedRow, setAutoRefresh } from '../actions/index';
+import { DATE_SORTING_MODE } from '../constants/rfqConstants';
 import SelectColumnModalContainer from './SelectColumnModalContainer';
 
 const SecondaryMenuContainer = (props) => {

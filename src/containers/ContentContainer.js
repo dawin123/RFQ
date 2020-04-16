@@ -4,7 +4,7 @@ import { Segment } from "semantic-ui-react";
 import TabContainer from "./TabContainer";
 import TableContainer from "./TableContainer";
 import PaginationContainer from "./PaginationContainer";
-import { fetchRFQData } from "./actions/index";
+import { fetchRFQData } from "../actions/index";
 
 const ContentContainer = props => {
   const { fetchRFQData, autoRefresh } = props;

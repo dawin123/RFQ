@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
-import { setShowSidebar } from "./actions/index";
+import { setShowSidebar } from "../actions/index";
 
 const SidebarContainer = props => {
   const { showSidebar, toggleSidebar } = props;
