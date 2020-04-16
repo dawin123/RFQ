@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
 import { Menu, Icon, Checkbox, Button } from "semantic-ui-react";
 
-import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode, setHiddenRow, removeAllSelectedRow } from './actions/index';
+import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode, setHiddenRow, 
+  removeAllSelectedRow, setAutoRefresh } from './actions/index';
 import { DATE_SORTING_MODE } from './constants/rfqConstants';
 import SelectColumnModalContainer from './SelectColumnModalContainer';
 
 const SecondaryMenuContainer = (props) => {
   const { resetFilter, fetchRFQData, setCurrentPageNo, dateSort, setDateSortingMode, entry, 
-    selectedRow, hiddenRow, setHiddenRow, removeAllSelectedRow } = props;
+    selectedRow, hiddenRow, setHiddenRow, removeAllSelectedRow, autoRefresh, setAutoRefresh } = props;
 
   const handleClearFilter = () => {
     resetFilter();
@@ -36,6 +37,10 @@ const SecondaryMenuContainer = (props) => {
     }
 
     setHiddenRow(!hiddenRow);
+  };
+
+  const handleAutoRefresh = (ev, data) => {
+    setAutoRefresh(data.checked);
   };
 
   return (
@@ -65,7 +70,7 @@ const SecondaryMenuContainer = (props) => {
             </CSVLink>
           </Menu.Item>
           <Menu.Item name="refresh">
-            <Checkbox label={"Auto Refresh"} />
+            <Checkbox label={"Auto Refresh"} checked={autoRefresh} onChange={handleAutoRefresh} />
           </Menu.Item>
           <Menu.Item name="clear" onClick={handleClearFilter}>
             <Icon name="filter" /> Clear Filters
@@ -81,6 +86,7 @@ const mapStateToProps = state => ({
   entry: state.rfqEntry,
   hiddenRow: state.hiddenRow,
   selectedRow: state.selectedRow,
+  autoRefresh: state.autoRefresh
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -90,6 +96,7 @@ const mapDispatchToProps = dispatch => ({
   setDateSortingMode: value => dispatch(setDateSortingMode(value)),
   setHiddenRow: value => dispatch(setHiddenRow(value)),
   removeAllSelectedRow: () => dispatch(removeAllSelectedRow()),
+  setAutoRefresh: value => dispatch(setAutoRefresh(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SecondaryMenuContainer);

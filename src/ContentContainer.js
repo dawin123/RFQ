@@ -7,11 +7,21 @@ import PaginationContainer from "./PaginationContainer";
 import { fetchRFQData } from "./actions/index";
 
 const ContentContainer = props => {
-  const { fetchRFQData } = props;
+  const { fetchRFQData, autoRefresh } = props;
 
   useEffect(() => {
     fetchRFQData();
   }, [fetchRFQData]);
+
+  useEffect(() => {
+    let interval;
+    if(autoRefresh){
+      interval = setInterval(() => {
+        fetchRFQData();
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [autoRefresh]);
 
   return (
     <div>
@@ -26,9 +36,7 @@ const ContentContainer = props => {
 };
 
 const mapStateToProps = state => ({
-  selectedTab: state.selectedTab,
-  filter: state.filter,
-  pagination: state.pagination
+  autoRefresh: state.autoRefresh
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -42,7 +42,8 @@ const initialState = {
   isLoading: false,
   dateSort: DATE_SORTING_MODE.MOST_RECENT,
   selectedRow: [],
-  hiddenRow: false
+  hiddenRow: false,
+  autoRefresh: false
 };
 
 const rfq = (state = initialState, action) => {
@@ -147,6 +148,11 @@ const rfq = (state = initialState, action) => {
       return {
         ...state,
         hiddenRow: action.value,
+      };
+    case rfqActionType.SET_AUTO_REFRESH:
+      return {
+        ...state,
+        autoRefresh: action.value,
       };
     default:
       return state;

@@ -83,31 +83,10 @@ export const setHiddenRow = value => ({
   value: value
 });
 
-export const fetchAPI = () => {
-  axios
-    .get("https://api.github.com/users/square/repos")
-    .then(response => {
-      console.log(JSON.stringify(response));
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
-
-export const postAPI = () => {
-  axios
-    .post("https://jsonplaceholder.typicode.com/posts", {
-      name: "test",
-      salary: "123",
-      age: "23"
-    })
-    .then(response => {
-      console.log(JSON.stringify(response));
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
+export const setAutoRefresh = value => ({
+  type: rfqActionType.SET_AUTO_REFRESH,
+  value: value
+});
 
 export const fetchRFQData = () => (dispatch, getState) => {
   console.log("fetching data!");
