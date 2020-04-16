@@ -28,6 +28,18 @@ const initialState = {
     [FILTER_FIELD.QUOTE_STATUS]: true,
     [FILTER_FIELD.MARKET]: true
   },
+  createRFQField: {
+    [FILTER_FIELD.RFQ]: "",
+    [FILTER_FIELD.QUOTE_ID]: "",
+    [FILTER_FIELD.LAST_UPDATED]: "",
+    [FILTER_FIELD.SENDER]: "",
+    [FILTER_FIELD.SUBJECT]: "",
+    [FILTER_FIELD.PRODUCT]: "",
+    [FILTER_FIELD.PERCENTAGE]: "",
+    [FILTER_FIELD.QUANTITY]: "",
+    [FILTER_FIELD.QUOTE_STATUS]: "",
+    [FILTER_FIELD.MARKET]: ""
+  },
   pagination: {
     currentPageNo: 1,
     totalPageNo: 5,
@@ -154,6 +166,19 @@ const rfq = (state = initialState, action) => {
         ...state,
         autoRefresh: action.value,
       };
+    case rfqActionType.SET_CREATE_RFQ_FIELD_VALUE:
+      return {
+        ...state,
+        createRFQField: {
+          ...state.createRFQField,
+          [action.field]: action.value
+        }
+      };
+    case rfqActionType.RESET_CREATE_RFQ_FIELD_VALUE:
+      return {
+        ...state,
+        createRFQField: initialState.createRFQField
+      }
     default:
       return state;
   }

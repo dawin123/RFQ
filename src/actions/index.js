@@ -88,6 +88,26 @@ export const setAutoRefresh = value => ({
   value: value
 });
 
+export const setCreateRFQFieldValue = (field, value) => ({
+  type: rfqActionType.SET_CREATE_RFQ_FIELD_VALUE,
+  field: field,
+  value: value
+});
+
+export const resetCreateRFQFieldValue = () => ({
+  type: rfqActionType.RESET_CREATE_RFQ_FIELD_VALUE
+});
+
+const processPercentageFilter = (percentage) => {
+  if(percentage){
+    let result = parseFloat(percentage.replace("%", ""), 10) / 100.0;
+    if(!isNaN(result)){
+      return result.toFixed(2).toString();
+    }
+  }
+  return percentage;
+};
+
 export const fetchRFQData = () => (dispatch, getState) => {
   console.log("fetching data!");
   const state = getState();
@@ -99,7 +119,7 @@ export const fetchRFQData = () => (dispatch, getState) => {
     senderFilter: state.filter[FILTER_FIELD.SENDER],
     subjectFilter: state.filter[FILTER_FIELD.SUBJECT],
     productFilter: state.filter[FILTER_FIELD.PRODUCT],
-    percentageFilter: state.filter[FILTER_FIELD.PERCENTAGE],
+    percentageFilter: processPercentageFilter(state.filter[FILTER_FIELD.PERCENTAGE]),
     quantityFilter: state.filter[FILTER_FIELD.QUANTITY],
     quoteStatusFilter: state.filter[FILTER_FIELD.QUOTE_STATUS],
     marketFilter: state.filter[FILTER_FIELD.MARKET],

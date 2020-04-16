@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
-import { Menu, Icon, Checkbox, Button } from "semantic-ui-react";
+import { Menu, Icon, Checkbox, Button, Segment } from "semantic-ui-react";
 
 import { resetFilter, fetchRFQData, setCurrentPageNo, setDateSortingMode, setHiddenRow, 
   removeAllSelectedRow, setAutoRefresh } from '../actions/index';
 import { DATE_SORTING_MODE } from '../constants/rfqConstants';
 import SelectColumnModalContainer from './SelectColumnModalContainer';
+import CreateRFQModalContainer from './CreateRFQModalContainer';
 
 const SecondaryMenuContainer = (props) => {
   const { resetFilter, fetchRFQData, setCurrentPageNo, dateSort, setDateSortingMode, entry, 
@@ -45,38 +46,40 @@ const SecondaryMenuContainer = (props) => {
 
   return (
     <div>
-      <Menu secondary>
-        <Menu.Menu position="right">
-          <Menu.Item name="columns">
-            <SelectColumnModalContainer/>
-          </Menu.Item>
-          <Menu.Item name="hide" onClick={toggleHideRow} disabled={selectedRow.length < 1}>
-            <Icon name={hiddenRow ? "unhide" : "hide"} /> {hiddenRow ? 'Unhide' : 'Hide'}
-          </Menu.Item>
-          <Menu.Item name="dateSort" onClick={handleDateSort}>
-            <Button>
-              <Icon name="calendar alternate" /> 
-              {dateSort === DATE_SORTING_MODE.MOST_RECENT ?
-              'Sort: Most Recent - Least Recent' : 'Sort: Least Recent - Most Recent'
-              }
-            </Button>
-          </Menu.Item>
-          <Menu.Item name="create">
-            <Icon name="plus" /> Create RFQ
-          </Menu.Item>
-          <Menu.Item name="export">
-            <CSVLink data={entry} filename={'RFQ.csv'} style={{color: 'rgba(0,0,0,.87)'}}>
-              <Icon name="download" /> Export
-            </CSVLink>
-          </Menu.Item>
-          <Menu.Item name="refresh">
-            <Checkbox label={"Auto Refresh"} checked={autoRefresh} onChange={handleAutoRefresh} />
-          </Menu.Item>
-          <Menu.Item name="clear" onClick={handleClearFilter}>
-            <Icon name="filter" /> Clear Filters
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
+      <Segment basic style={{ paddingTop: '0.1em', paddingBottom: '0.1em' }}>
+        <Menu secondary>
+          <Menu.Menu position="right">
+            <Menu.Item name="columns">
+              <SelectColumnModalContainer/>
+            </Menu.Item>
+            <Menu.Item name="hide" onClick={toggleHideRow} disabled={selectedRow.length < 1}>
+              <Icon name={hiddenRow ? "unhide" : "hide"} /> {hiddenRow ? 'Unhide' : 'Hide'}
+            </Menu.Item>
+            <Menu.Item name="dateSort">
+              <Button onClick={handleDateSort}>
+                <Icon name="calendar alternate" /> 
+                {dateSort === DATE_SORTING_MODE.MOST_RECENT ?
+                'Sort: Most Recent - Least Recent' : 'Sort: Least Recent - Most Recent'
+                }
+              </Button>
+            </Menu.Item>
+            <Menu.Item name="create" onClick={() => true}>
+              <CreateRFQModalContainer/>
+            </Menu.Item>
+            <Menu.Item name="export" onClick={() => true}>
+              <CSVLink data={entry} filename={'RFQ.csv'} style={{color: 'rgba(0,0,0,.87)'}}>
+                <Icon name="download" /> Export
+              </CSVLink>
+            </Menu.Item>
+            <Menu.Item name="refresh">
+              <Checkbox label={"Auto Refresh"} checked={autoRefresh} onChange={handleAutoRefresh} />
+            </Menu.Item>
+            <Menu.Item name="clear" onClick={handleClearFilter}>
+              <Icon name="filter" /> Clear Filters
+            </Menu.Item>
+          </Menu.Menu>
+        </Menu>
+      </Segment>
     </div>
   );
 };
