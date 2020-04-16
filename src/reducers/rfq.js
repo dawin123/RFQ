@@ -2,7 +2,7 @@ import { FILTER_FIELD, LIST_TYPE, DATE_SORTING_MODE } from "../constants/rfqCons
 import * as rfqActionType from "../actions/rfqActionType";
 
 const initialState = {
-  showSidebar: true,
+  showSidebar: false,
   selectedTab: 0,
   filter: {
     [FILTER_FIELD.RFQ]: "",

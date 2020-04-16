@@ -19,8 +19,8 @@ const SelectColumnModalContainer = (props) => {
       <Modal.Description>
         {Object.keys(FILTER_FIELD).map(key => {
           return (
-            <div>
-              <Checkbox key={key} label={FILTER_FIELD[key]} 
+            <div key={key}>
+              <Checkbox label={FILTER_FIELD[key]} 
                 checked={showColumn[FILTER_FIELD[key]]} onChange={handleCheckboxChange(FILTER_FIELD[key])}/>
             </div>
           );

@@ -17,6 +17,7 @@ const TableContainer = props => {
     return {
       onChange: handleInputChange(field),
       value: filter[field],
+      placeholder: "Search",
       onKeyPress: event => {
         if (event.key === "Enter") {
           setCurrentPageNo(1);
@@ -104,11 +105,11 @@ const TableContainer = props => {
                       if(showColumn[FIELD_OBJECT_MAPPING[key]]){
                         if(key === 'percentage'){
                           return (
-                            <Table.Cell>{showPercentage(entry.percentage)}%</Table.Cell>
+                            <Table.Cell key={entry.rfq+key}>{showPercentage(entry.percentage)}%</Table.Cell>
                           );
                         } else {
                           return (
-                            <Table.Cell>{entry[key]}</Table.Cell>
+                            <Table.Cell key={entry.rfq+key}>{entry[key]}</Table.Cell>
                           );
                         }
                       } else {
