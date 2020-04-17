@@ -100,11 +100,19 @@ export const resetCreateRFQFieldValue = () => ({
 
 const processPercentageFilter = (percentage) => {
   if(percentage){
-    let result = parseFloat(percentage.replace("%", ""), 10) / 100.0;
-    if(!isNaN(result)){
-      return result.toFixed(2).toString();
-    }
+    const percentageList = percentage.replace("%", "").replace(" ", "").split(",");
+    const resultList = percentageList.map((percentage) => {
+      const result = (parseFloat(percentage.replace("%", ""), 10) / 100.0);
+      if(!isNaN(result)){
+        return result.toFixed(2).toString();
+      }
+      return "";
+    });
+    const finalResult = resultList.join(",");
+
+    return finalResult;
   }
+
   return percentage;
 };
 

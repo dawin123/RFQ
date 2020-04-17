@@ -90,15 +90,15 @@ const MenuContainer = props => {
             <Checkbox style={{ marginRight: "5px" }} onChange={handleAutoRejectCheck} checked={autoReject}/> Auto Reject Order
           </Menu.Item>
 
-          <Menu.Item name="date" onClick={handleItemClick}>
+          <Menu.Item name="date">
             {today.toDateString()}
           </Menu.Item>
 
-          <Menu.Item name="date" onClick={handleItemClick}>
+          <Menu.Item name="date">
             {"Welcome, Trader1"}
           </Menu.Item>
 
-          <Menu.Item name="mail" onClick={handleItemClick}>
+          <Menu.Item name="mail">
             <Popup basic content='You have 22 unread message(s).' 
               trigger={
               <div>
