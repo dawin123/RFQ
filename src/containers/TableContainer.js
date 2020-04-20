@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Table, Input, Button, Loader, Checkbox } from "semantic-ui-react";
-// import sampleData from "./sampleData";
 import { setFilter, fetchRFQData, setCurrentPageNo, addSelectedRow, removeAllSelectedRow, removeSelectedRow, setHiddenRow } from "../actions/index";
 import { FILTER_FIELD, FIELD_TEXT, FIELD_OBJECT_MAPPING } from "../constants/rfqConstants";
 
 const TableContainer = props => {
   const { filter, entry, setDataFilter, fetchRFQData, setCurrentPageNo, isLoading, showColumn, 
-    addSelectedRow, removeAllSelectedRow, removeSelectedRow, selectedRow, hiddenRow } = props;
+    addSelectedRow, removeAllSelectedRow, removeSelectedRow, selectedRow, hiddenRow, setHiddenRow } = props;
 
   const showPercentage = decimal => {
     return (parseFloat(decimal) * 100.0).toFixed(0);
@@ -151,7 +150,8 @@ const mapDispatchToProps = dispatch => ({
   fetchRFQData: () => dispatch(fetchRFQData()),
   addSelectedRow: toSelect => dispatch(addSelectedRow(toSelect)),
   removeAllSelectedRow: () => dispatch(removeAllSelectedRow()),
-  removeSelectedRow: toUnselect => dispatch(removeSelectedRow(toUnselect))
+  removeSelectedRow: toUnselect => dispatch(removeSelectedRow(toUnselect)),
+  setHiddenRow: () => dispatch(setHiddenRow())
 });
 
 export default connect(
